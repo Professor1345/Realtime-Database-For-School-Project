@@ -17,7 +17,7 @@ const Main = () => {
             <div className=" w-full  p-2 md:px-8 sm:py-10 bg-white rounded-lg    px-4   mt-6">
                 <div className="flex sm:flex-row flex-col sm:space-x-8">
                     {/* left part */}
-                <div className="flex w-full sm:w-1/2 justify-center align-center">
+                <div className="flex w-full sm:w-1/2 justify-center align-center space-y-4">
                     <div className="w-full sm:w-10/12 space-y-4">    
                     <h1 className="text-3xl sm:text-5xl font-bold  text-gray-600">
                         Welcome to Uniwaters
@@ -26,9 +26,12 @@ const Main = () => {
                         Uniwater is a solution
                         for management of water and control of water distribution remotely with the aid of a  Iot(Internet of Things).
                     </p>
-                    <button to="/login" className="bg-blue-500 text-white mt-60 rounded-lg px-20 py-4 mx-auto block">
+                    <div className="flex  align-center ">
+                    <Link to="/tanks" className="bg-blue-500 text-white  rounded-lg px-10 py-4  ">
                         Get Started
-                        </button>
+                        </Link>
+
+                </div>
                 </div>
                 </div>
                 {/* right part */}
@@ -42,11 +45,11 @@ const Main = () => {
         <div className="w-full mt-4 sm:mt-10 bg-slate-50 pt-10 pb-4 sm:pb-10">
             <div className="container mx-auto">
                 <div className="flex justify-center align-center mt-8">
-                <button className="self-center mx-auto rounded-lg px-8 py-2 bg-blue-200 text-blue-900 mb-2">
+                <Link to='/tanks' className="self-center mx-auto rounded-lg px-8 py-2 bg-blue-200 text-blue-900 mb-2">
                     Features
-                </button>
+                </Link>
                 </div>
-                {/* end of features button */}
+                {/* end of features Link */}
                 <div className="flex flex-col px-4 md:px-4 align-center w-full md:w-8/12 mx-auto mb-4 sm:mb-10">
                 <h1 className="text-gray-800 text-center text-3xl sm:text-4xl font-bold">Our Core Features </h1>
                 <p className="text-center text-lg">
@@ -100,9 +103,9 @@ const Main = () => {
             <div className="container mx-auto flex flex-col pb-10  mt-4 sm:mt-10"> 
             <div className="flex justify-center align-center mt-8 ">
 
-            <button className="self-center mx-auto rounded-lg px-8 py-2 bg-blue-200 text-blue-900 mb-2">
+            <Link className="self-center mx-auto rounded-lg px-8 py-2 bg-blue-200 text-blue-900 mb-2">
                     About Us
-                </button>
+                </Link>
 
         </div>
         <div className="flex flex-col align-center w-full md:w-8/12 mx-auto mb-4 sm:mb-10">
