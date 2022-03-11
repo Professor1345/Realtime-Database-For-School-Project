@@ -1,4 +1,5 @@
 import React from 'react'
+import {useHistory} from 'react-router-dom'
 
 const SingleTank = ({info}) => {
     const {name,level, date, rate, location, time, color} = info;
@@ -7,10 +8,12 @@ const SingleTank = ({info}) => {
         return Number(str.replace(/\D/g,''));
     }
     const levelNumber = convertToNumber(level);
-    
+    const history = useHistory();
     return (
         <>
-            <div className=" grid grid-cols-2 gap-4 ">
+            <div className=" grid grid-cols-2 gap-4 cursor-pointer"
+            onClick={()=>history.push("/tankview")}>
+            
                 <div className="col-auto">
                     <div className="bg-gray-300 h-96 flex items-end rounded-t-2xl ">
                 <div className={`w-full bg-pink-600  mb-30 flex rounded-t-2xl justify-center align-center `}

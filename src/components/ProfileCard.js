@@ -1,8 +1,13 @@
 import React from 'react'
+import {useHistory} from 'react-router-dom'
 
 const ProfileCard = ({name,mat, school, dept, img}) => {
+    const history = useHistory()
+
   return (
-  <div className="p-4 rounded-lg sm:shadow-lg w-full ">
+  <div className="p-4 rounded-lg sm:shadow-lg w-full cursor-pointer" 
+  onClick={()=>history.push("/tankview")}>
+  
     <div className="flex flex-col justify-center items-center w-full  mx-auto  bg-white space-y-2 p-2 ">
       <div className="flex items-center justify-center">
 

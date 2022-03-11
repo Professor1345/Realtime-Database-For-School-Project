@@ -2,7 +2,7 @@ const demodata = [
     {
         "id": "1",
         "name": "Tank 1",
-        "level": "90",
+        "level": Math.floor(Math.random() * 100) + '%',
         "date": "2020-01-01",
         "rate": "20 ml/min",
         "location": "building 1",
