@@ -2,8 +2,6 @@ import React from 'react';
 import Header from '../components/Header';
 import illus from '../assets/clip-iot.png';
 import { Link } from 'react-router-dom';
-//   Special Features created just for you. we provide a solution for monitoring and controlling water distribution systems in order to reduce water loss and establish an effective, scalable, and practical water management system.
-// The approach presented in this study is completely automated. Thanks to this technique, human work and time are considerably minimized, and waste is completely avoided.
 import {FiClock, FiEdit} from 'react-icons/fi';
 import {AiTwotoneRocket} from 'react-icons/ai';
 import {FaUserAlt} from 'react-icons/fa';
