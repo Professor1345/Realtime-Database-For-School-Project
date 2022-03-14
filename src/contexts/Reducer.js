@@ -10,34 +10,33 @@ export const tankReducer = (state, action) => {
         ...state,
         tanks: state.tanks.filter((tank) => tank.id !== action.payload),
       };
-    case "ON_TANK":
+    case "SWITCH_TANK_STATUS":
       return {
         ...state,
-        tanks: state.tanks.map((tank) => {
-          if (tank.id === action.payload.id) {
-            return {
-              ...tank,
-              ...action.payload,
-            };
-          } else {
-            return tank;
-          }
-        }),
+        tanks: state.tanks.map((tank) =>
+          tank.id === action.payload ? { ...tank, status: !tank.status } : tank
+        ),
       };
-    case "OFF_TANK":
+      case "DELETE_TANK":
       return {
         ...state,
-        tanks: state.tanks.map((tank) => {
-          if (tank.id === action.payload.id) {
-            return {
-              ...tank,
-              ...action.payload,
-            };
-          } else {
-            return tank;
-          }
-        }),
+        tanks: state.tanks.filter((tank) => tank.id !== action.payload),
       };
+      case "EDIT_TANK":
+      return {
+        ...state,
+        tanks: state.tanks.map((tank) =>
+          tank.id === action.payload.id ? action.payload : tank
+        ),
+      };
+      case "UPDATE_TANK":
+      return {
+        ...state,
+        tanks: state.tanks.map((tank) =>
+          tank.id === action.payload.id ? action.payload : tank
+        ),
+      };
+      
 
     default:
       return state;

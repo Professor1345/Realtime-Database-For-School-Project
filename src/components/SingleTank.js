@@ -1,14 +1,33 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import { TankState } from "../contexts/Context";
+
 
 const SingleTank = ({ info }) => {
-  const { name, level, date, rate, location, time, color } = info;
+  const { name, level, date, rate, location, time, color, status } = info;
   // write a function to convert a string to a number
   const convertToNumber = (str) => {
     return Number(str.replace(/\D/g, ""));
   };
   const levelNumber = convertToNumber(level);
   const history = useHistory();
+      const {
+        state: { tanks },
+        dispatch,
+      } = TankState();
+
+const switchStatus = (id) => {
+  const tank = tanks.find((tank) => tank.id === id);
+  const newTank = {
+    ...tank,
+    status: !tank.status,
+  };
+  dispatch({
+    type: "UPDATE_TANK",
+    payload: newTank,
+  });
+};
+
   return (
     <>
       <div
@@ -38,7 +57,22 @@ const SingleTank = ({ info }) => {
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 flex items-center justify-center w-6/12"
               onClick={() => history.push('/tankView')}>
               View Logs
-              </button>
+            </button>
+
+            {
+              status ? (  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 flex items-center justify-center w-6/12"   
+              onClick={() => switchStatus(info.id)}>
+              
+              Turn Off
+            </button> ) : ( <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 flex items-center justify-center w-6/12" 
+            onClick={() => switchStatus(info.id)}>
+              Turn On
+              
+            </button> )
+            }
+            {
+              status ? ( <p>The Tank is currently ON</p> ) : ( <p>The Tank is currently OFF</p> )
+            }
           </div>
         </div>
       </div>
