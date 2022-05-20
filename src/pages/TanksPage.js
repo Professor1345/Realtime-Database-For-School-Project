@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import MainHeader from "../components/MainHeader";
 import SingleTank from "../components/SingleTank";
 
@@ -6,11 +6,33 @@ import Footer from "../components/Footer";
 import { TankState } from "../contexts/Context";
 import {useHistory} from 'react-router-dom';
 
+import { getWater } from '../config'
+
 const TanksPage = () => {
     const history = useHistory();
+    const [loading, setLoading] = useState(false);
+    const [pins, setPins] = useState([]);
+
   const {
     state: { tanks },
   } = TankState();
+  useEffect(() => {
+   const fetchData = async () => {
+      setLoading(true);
+      const res =  getWater();
+      if(res){
+        console.log(res)
+      }
+      // setPins(data);
+      // setLoading(false);
+    }
+    fetchData();
+  }, []);
+  // console.log(pins);
+ 
+  
+  
+  // });
   return (
     <>
       
