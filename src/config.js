@@ -23,18 +23,17 @@ const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 
  const db = getDatabase(app);
-
+// let answer = [];
 export const getWater = () => {
   const starCountRef = ref(db, 'Water');
-  get(starCountRef).then(snap => {
-   console.log (snap.val())
-    // .forEach((data) => {
-    //   console.log(data.val())
-    // }
-    // )
-      // if ( snap.docs() === "undefined") console.log(snap.val());
-      // console.log('None')
+  
+ return get(starCountRef).then(snap => {
+    
+   return snap.val()
+    
+    //  console.log(answer);
   })
+  // return answer
 }
 // const db = getDatabase();
 

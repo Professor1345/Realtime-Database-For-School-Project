@@ -1,5 +1,11 @@
 export const tankReducer = (state, action) => {
   switch (action.type) {
+    case "STORE_TANK":
+       return {
+         ...state,
+         tanks:  action.payload
+       };
+
     case "ADD_TANK":
       return {
         ...state,

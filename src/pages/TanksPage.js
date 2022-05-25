@@ -14,39 +14,25 @@ const TanksPage = () => {
     const [pins, setPins] = useState([]);
 
   const {
-    state: { tanks },
+  state: {tanks} 
   } = TankState();
-  useEffect(() => {
-   const fetchData = async () => {
-      setLoading(true);
-      const res =  getWater();
-      if(res){
-        console.log(res)
-      }
-      // setPins(data);
-      // setLoading(false);
-    }
-    fetchData();
-  }, []);
-  // console.log(pins);
+  
+
  
   
-  
-  // });
   return (
     <>
-      
-        <MainHeader />
-        <div className="grid md:grid-cols-2 gap-8  mt-4 ">
-          {tanks.map((info, index) => {
-            return (
-              <div className=" p-2 mb-4 " key={index}>
-                <SingleTank info={info} />
-              </div>
-            );
-          })}
-        </div>
-        <div className="relative">
+      <MainHeader />
+      <div className="grid md:grid-cols-2 gap-8  mt-4 ">
+        {tanks.length &&tanks.map((info, index) => {
+          return (
+            <div className=" p-2 mb-4 " key={index}>
+              <SingleTank info={info} />
+            </div>
+          );
+        })}
+      </div>
+      <div className="relative">
         <div className="fixed bottom-0 right-0 mb-4 mr-4">
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -55,9 +41,8 @@ const TanksPage = () => {
             + Add Tank
           </button>
         </div>
-        </div>
-        <Footer />
-      
+      </div>
+      <Footer />
     </>
   );
 };
