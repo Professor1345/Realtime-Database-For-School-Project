@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 const MainHeader = () => {
     const history = useHistory();
     return (
-      <div className="w-full h-16 shadow-md  flex justify-between items-center bg-white">
+      <div className="w-full h-16 shadow-md  flex justify-between items-center bg-white sticky top-0">
         <div className="flex items-center">
           <Link to="/main">
             <img src={Logo} alt="icon" className="w-12  h-auto self-center" />
