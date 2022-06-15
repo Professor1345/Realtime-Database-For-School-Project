@@ -1,7 +1,17 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, onValue, get, update } from 'firebase/database';
-import { useCallback } from 'react';
+import {
+  GoogleAuthProvider,
+  getAuth,
+  signInWithPopup,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signOut,
+  onAuthStateChanged,
+} from 'firebase/auth';
+import { getDatabase, ref, get, update } from 'firebase/database';
+import { useCallback, useEffect, useState } from 'react';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -18,11 +28,30 @@ const firebaseConfig = {
   measurementId: 'G-HZBFV30LYF',
   synchronizeTabs: true,
 };
-
+const googleProvider = new GoogleAuthProvider();
+export const signInWithGoogle = async () => {
+  try {
+    const res = await signInWithPopup(auth, googleProvider);
+    console.log(res);
+    // PUSH to auth page
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const CheckLoginStatus = () => {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => setUser(user));
+  }, []);
+  return { user };
+};
+const logout = () => {
+  signOut(auth);
+};
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
-
+export const auth = getAuth(app);
 export const db = getDatabase(app);
 // let answer = [];
 export const updateWater = async (id, data) => {

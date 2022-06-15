@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { updateWater, WaterHooks } from '../config';
 import { TankState } from '../contexts/Context';
-
+import { toast } from 'react-toastify';
 const SingleTank = ({ info }) => {
   const handleData = (d) => ({
     name: d.Name,
@@ -32,11 +32,9 @@ const SingleTank = ({ info }) => {
     });
     setData(handleData(d[id]));
   };
-  const [isLeakage, setIsLeakage] = useState(false);
   React.useEffect(() => {
-    if (data.rate <= 15) setIsLeakage(true);
-    else setIsLeakage(false);
-  }, [data.rate]);
+    if (data.rate <= 15) toast.error(`${data.name} is leaking`);
+  }, [data.rate, data.name]);
   return (
     <>
       <div className=" grid grid-cols-2 gap-4 cursor-pointer">
@@ -87,7 +85,6 @@ const SingleTank = ({ info }) => {
             ) : (
               <p>The Tank is currently OFF</p>
             )}
-            {isLeakage && <p>The Tank is Leaking</p>}
           </div>
         </div>
       </div>
