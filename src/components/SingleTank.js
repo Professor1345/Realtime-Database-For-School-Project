@@ -4,14 +4,37 @@ import { updateWater, WaterHooks } from '../config';
 import { TankState } from '../contexts/Context';
 import { toast } from 'react-toastify';
 const SingleTank = ({ info }) => {
+  const convertLevel = (level) => {
+    if (level === 0) {
+      return 100;
+    }
+    let newValue = 100 - level;
+
+    if (newValue === 0) {
+      return 0;
+    }
+    return Math.floor(newValue * 2);
+  }
+  const handleTime = () => {
+    let time = new Date;
+  let hours =   time.getHours(); //returns value 0-23 for the current hour
+    let minutes = time.getMinutes();
+    if (hours <= 11) {
+      return `${hours}:${minutes} AM`
+    }
+    else {
+      return `${hours}:${minutes} PM`;
+    }
+  }
   const handleData = (d) => ({
     name: d.Name,
-    level: d.Level,
-    date: d.date || '11/22/3',
+    level: convertLevel(d.Level),
+    // level: d.Level,
+    date: d.date || new Date().toLocaleDateString(),
     rate: d.flow_rate || 0,
-    location: d.location || '',
-    time: d.time || '',
-    color: d.color || '',
+    location: d.location || "",
+    time: d.time || handleTime(),
+    color: d.color || "",
     status: d.Status || 0,
     sw: d.SW || 0,
   });
@@ -33,7 +56,7 @@ const SingleTank = ({ info }) => {
     setData(handleData(d[id]));
   };
   React.useEffect(() => {
-    if (data.rate <= 15) toast.error(`${data.name} is leaking`);
+    if (data.rate <= 0.5) toast.error(`${data.name} is leaking`);
   }, [data.rate, data.name]);
   return (
     <>
@@ -44,17 +67,18 @@ const SingleTank = ({ info }) => {
               className={`w-full bg-pink-600  mb-30 flex rounded-t-2xl justify-center align-center `}
               style={{
                 height: levelNumber + '%',
+                maxHeight: "24rem",
                 backgroundColor: ' rgb(14 165 233)',
               }}
             >
-              <p className="text-gray-900 text-2xl ">{data.level}</p>
+              <p className="text-gray-900 text-2xl ">{data.level} %</p>
             </div>
           </div>
         </div>
         <div className="col-auto md:col-auto ">
           <div className="flex flex-col  w-full space-y-2">
             <p className="text-gray-600 text-xl">TankName: {data.name}</p>
-            <p className="text-gray-600 text-xl"> Location:{data.location}</p>
+            {/* <p className="text-gray-600 text-xl"> Location:{data.location}</p> */}
             <p className="text-gray-600 text-xl">Date: {data.date}</p>
             <p className="text-gray-600 text-xl">Time {data.time}</p>
             <p className="text-gray-600 text-xl">FlowRate {data.rate}</p>

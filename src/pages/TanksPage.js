@@ -27,6 +27,7 @@ const TanksPage = () => {
       );
       setTanks(tempTanks);
       setLoading(false);
+      
     });
     console.log(tanks.length);
   }, [tanks.length]);
