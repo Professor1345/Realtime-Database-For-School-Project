@@ -1,77 +1,104 @@
-import React from 'react'
-import { TankState } from "../contexts/Context";
-
-
-// const tableData = [
-//     {
-//         id: 1,
-//         name: 'Tank 1',
-//         status: 'OK',
-//         time: new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds(),
-//        volume: Math.floor(Math.random() * 100) + '%',
-//         lastFull: '10/3/2022',
-//     }, 
-//     {
-//         id: 2,
-//         name: 'Tank 2',
-//         status: 'OK',
-//         time: new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds(),
-//         volume: Math.floor(Math.random() * 100) + '%',
-//         lastFull: '10/3/2022',
-//     },
-//     {
-//         id: 3,
-//         name: 'Tank 3',
-//         status: 'OK',
-//         time: new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds(),
-//         volume: Math.floor(Math.random() * 100) + '%',
-//         lastFull: '10/3/2022',
-//     },
-
-// ];
-
+import React, { useState, useEffect } from "react";
 
 const TankOverview = () => {
-    // a variable that gets a random number between 0 and 100 in percentage
+  let value = JSON.parse(window.localStorage.getItem("tanks-data"));
+  const [tankData, setTankData] = useState(value || []);
+  useEffect(() => {
+    if (value !== undefined || null) {
+      setTankData(value);
+    }
+  }, [value]);
 
-    // const random = Math.floor(Math.random() * 100) + '%';
-    const {
-      state: { tanks },
-    } = TankState();
-    return (
-      <div className="tank-overview flex flex-col justify-center align-center">
-        <div className="tank-overview-header">
-          <h2 className="text-center text-3xl font-bold">Tank Overview</h2>
-        </div>
-        <div className="tank-overview-table w-full flex">
-          <table className=" md:w-full flex justify-center flex-col mx-auto">
-            <thead className="self-center mx-auto">
-              <tr className="flex space-x-6 md:space-x-10">
-                <th>Tank</th>
-                <th>Rate</th>
-                <th>Time</th>
-                <th>Volume</th>
-                <th>Last Full</th>
-              </tr>
-            </thead>
-            <tbody className="flex justify-center align-center flex-col">
-              {tanks.map((tank) => (
-                <tr
-                  key={tank.id}
-                  className="flex space-x-6 md:space-x-10 mb-6  align-center self-center mx-auto"
-                >
-                  <td className="self-center">{tank.name}</td>
-                  <td className="self-center">{tank.rate}</td>
-                  <td className="self-center">{tank.time}</td>
-                  <td className="self-center">{tank.volume}</td>
-                  <td className="self-center">{tank.date}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+  const clearData = () => {
+
+    window.localStorage.removeItem("tanks-data");
+    alert("Tanks Data Cleared Successfully");
+    window.location.reload();
+  }
+
+  return (
+    <div className="tank-overview flex flex-col justify-center align-center w-full max-w-[1320px] my-4">
+      <div className="tank-overview-header relative">
+        <h2 className="text-center text-3xl font-bold">Tanks Data Log</h2>
+        <p className="absolute top-2 right-3 cursor-pointer bg-red-500 text-white rounded-sm px-6 py-2" onClick={clearData}>Clear Data</p>
       </div>
-    );
-}
+      <div className="tank-overview-table w-full flex my-4">
+        <table className=" md:w-full flex justify-center flex-col mx-auto table-auto ">
+          <thead className="text-center mx-auto w-9/12">
+            <tr className="grid grid-cols-5 space-x-6  w-full py-2 bg-slate-100">
+              <th className="text-center">Tank Name</th>
+              <th>Level(%)</th>
+              <th>Rate</th>
+              <th>Status</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody className="flex justify-center align-center flex-col mx-auto w-9/12">
+            {tankData?.length !== 0 || undefined || null ? (
+              tankData?.map((tank, index) => {
+                return <SingleLine info={tank} key={index} />;
+              })
+            ) : (
+                <tr>
 
+                  <td className="text-center text-[45px]">No Data Yet </td>
+                </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+const SingleLine = ({ info }) => {
+  const convertLevel = (level) => {
+    if (level === 0) {
+      return 100;
+    }
+    let newValue = 100 - level;
+
+    if (newValue === 0) {
+      return 0;
+    }
+    return Math.floor(newValue * 2);
+  };
+  const handleTime = () => {
+    let time = new Date();
+    let hours = time.getHours(); //returns value 0-23 for the current hour
+    let minutes = time.getMinutes();
+    if (hours <= 11) {
+      return `${hours}:${minutes} AM`;
+    } else {
+      return `${hours}:${minutes} PM`;
+    }
+  };
+  const statusConverter = (status) => {
+    if (status === 1) {
+      return "ON";
+    } else return "OFF";
+  };
+
+  const handleData = (d) => ({
+    name: d?.Name,
+    level: convertLevel(d?.Level),
+    date: d?.date || new Date().toLocaleDateString(),
+    rate: d?.flow_rate || 0,
+    location: d.location || "",
+    time: d?.time || handleTime(),
+    color: d?.color || "",
+    status: statusConverter(d?.status) || "OFF",
+    sw: d?.SW || 0,
+  });
+  const [data, setData] = useState(handleData(info));
+  return (
+    <tr className="grid grid-cols-5 w-full space-x-6 md:space-x-10 mb-6  align-center  mx-auto py-2">
+      <td className="text-center">{data.name}</td>
+      <td className="text-center">{data.level}</td>
+      <td className="text-center">{data.rate}</td>
+      <td className="text-center">{data.status}</td>
+      <td className="text-center">{data.time}</td>
+    </tr>
+  );
+};
 export default TankOverview;

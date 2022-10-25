@@ -17,7 +17,7 @@ const TanksPage = () => {
   const [tanks, setTanks] = useState([]);
   const fetchRealTimeData = useCallback(async () => {
     setLoading(true);
-    const baseRef = ref(db, 'Water');
+    const baseRef = ref(db, "Water");
 
     await get(baseRef).then((snap) => {
       const t = snap.val();
@@ -31,9 +31,21 @@ const TanksPage = () => {
     });
     console.log(tanks.length);
   }, [tanks.length]);
-  React.useEffect(() => {
+  useEffect(() => {
     fetchRealTimeData();
+    const localData = JSON.parse(localStorage.getItem('tanks-data'))
+    if (localData !== null) {
+      const newTanks = [...localData, ...tanks];
+      localStorage.setItem("tanks-data", JSON.stringify(newTanks));
+    } else
+    localStorage.setItem("tanks-data", JSON.stringify(tanks));
   }, [fetchRealTimeData]);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      window.location.reload();
+    }, 60000);
+    return () => clearInterval(interval);
+  }, []);
   return (
     <>
       <MainHeader />
@@ -50,7 +62,7 @@ const TanksPage = () => {
           })
         )}
       </div>
-      <AddTank />
+      {/* <AddTank /> */}
       <Footer />
     </>
   );

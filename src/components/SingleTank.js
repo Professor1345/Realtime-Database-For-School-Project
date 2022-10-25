@@ -55,9 +55,9 @@ const SingleTank = ({ info }) => {
     });
     setData(handleData(d[id]));
   };
-  React.useEffect(() => {
-    if (data.rate <= 0.5) toast.error(`${data.name} is leaking`);
-  }, [data.rate, data.name]);
+  // React.useEffect(() => {
+  //   if (data.rate <= 0.5) toast.error(`${data.name} is leaking`);
+  // }, [data.rate, data.name]);
   return (
     <>
       <div className=" grid grid-cols-2 gap-4 cursor-pointer">
