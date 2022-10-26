@@ -11,7 +11,7 @@ const SingleTank = ({ info }) => {
     let newValue = 100 - level;
 
     if (newValue === 0) {
-      return 0;
+      return 10;
     }
     return Math.floor(newValue * 2);
   }
