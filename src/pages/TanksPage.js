@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import MainHeader from '../components/MainHeader';
-import SingleTank from '../components/SingleTank';
+import React, { useState, useEffect, useCallback } from "react";
+import MainHeader from "../components/MainHeader";
+import SingleTank from "../components/SingleTank";
 
-import Footer from '../components/Footer';
+import Footer from "../components/Footer";
 // import { TankState } from '../contexts/Context';
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 // import { getWater } from '../config';
-import { db, WaterHooks } from '../config';
-import { get, ref } from 'firebase/database';
+import { db, WaterHooks } from "../config";
+import { get, ref } from "firebase/database";
 const TanksPage = () => {
   const history = useHistory();
   const [loading, setLoading] = useState(false);
@@ -23,22 +23,29 @@ const TanksPage = () => {
       const t = snap.val();
       const tempTanks = [];
       Object.entries(t).map(([key, value]) =>
-        tempTanks.push({ ...value, id: key })
+        tempTanks.push({
+          ...value,
+          id: key,
+          date: new Date().toLocaleDateString("en-US", {
+            year: "2-digit",
+            month: "2-digit",
+            day: "2-digit",
+          }),
+          time: new Date().toLocaleTimeString("en-Us", {}),
+        })
       );
       setTanks(tempTanks);
       setLoading(false);
-      
     });
     console.log(tanks.length);
   }, [tanks.length]);
   useEffect(() => {
     fetchRealTimeData();
-    const localData = JSON.parse(localStorage.getItem('tanks-data'))
+    const localData = JSON.parse(localStorage.getItem("tanks-data"));
     if (localData !== null) {
       const newTanks = [...localData, ...tanks];
       localStorage.setItem("tanks-data", JSON.stringify(newTanks));
-    } else
-    localStorage.setItem("tanks-data", JSON.stringify(tanks));
+    } else localStorage.setItem("tanks-data", JSON.stringify(tanks));
   }, [fetchRealTimeData]);
   useEffect(() => {
     const interval = setInterval(() => {
@@ -76,7 +83,7 @@ const AddTank = () => {
       <div className="fixed bottom-0 right-0 mb-4 mr-4">
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={() => history.push('/addTank')}
+          onClick={() => history.push("/addTank")}
         >
           + Add Tank
         </button>

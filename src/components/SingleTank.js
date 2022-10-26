@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { updateWater, WaterHooks } from '../config';
-import { TankState } from '../contexts/Context';
-import { toast } from 'react-toastify';
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { updateWater, WaterHooks } from "../config";
+import { TankState } from "../contexts/Context";
+import { toast } from "react-toastify";
 const SingleTank = ({ info }) => {
   const convertLevel = (level) => {
     if (level === 0) {
@@ -14,18 +14,17 @@ const SingleTank = ({ info }) => {
       return 10;
     }
     return Math.floor(newValue * 2);
-  }
+  };
   const handleTime = () => {
-    let time = new Date;
-  let hours =   time.getHours(); //returns value 0-23 for the current hour
+    let time = new Date();
+    let hours = time.getHours(); //returns value 0-23 for the current hour
     let minutes = time.getMinutes();
     if (hours <= 11) {
-      return `${hours}:${minutes} AM`
-    }
-    else {
+      return `${hours}:${minutes} AM`;
+    } else {
       return `${hours}:${minutes} PM`;
     }
-  }
+  };
   const handleData = (d) => ({
     name: d.Name,
     level: convertLevel(d.Level),
@@ -55,9 +54,36 @@ const SingleTank = ({ info }) => {
     });
     setData(handleData(d[id]));
   };
+  const offStatus = async (id) => {
+    // Switch the status of the tank !! turn the value to a boolean data type
+    const d = await updateWater(id, {
+      SW: 0,
+      Status: 0,
+    });
+    console.log({ id: id, data });
+    setData(handleData(d[id]));
+  };
+  const OnStatus = async (id) => {
+    // Switch the status of the tank !! turn the value to a boolean data type
+    const d = await updateWater(id, {
+      SW: 1,
+      Status: 1,
+    });
+    console.log({ id: id, data });
+    setData(handleData(d[id]));
+  };
+
   // React.useEffect(() => {
   //   if (data.rate <= 0.5) toast.error(`${data.name} is leaking`);
   // }, [data.rate, data.name]);
+  useEffect(() => {
+    if (data.level >= 80) {
+      offStatus(info.id);
+    }
+    if (data.level <= 20) {
+      OnStatus(info.id);
+    }
+  }, [data.level, info.id]);
   return (
     <>
       <div className=" grid grid-cols-2 gap-4 cursor-pointer">
@@ -66,9 +92,9 @@ const SingleTank = ({ info }) => {
             <div
               className={`w-full bg-pink-600  mb-30 flex rounded-t-2xl justify-center align-center `}
               style={{
-                height: levelNumber + '%',
+                height: levelNumber + "%",
                 maxHeight: "24rem",
-                backgroundColor: ' rgb(14 165 233)',
+                backgroundColor: " rgb(14 165 233)",
               }}
             >
               <p className="text-gray-900 text-2xl ">{data.level} %</p>
@@ -84,7 +110,7 @@ const SingleTank = ({ info }) => {
             <p className="text-gray-600 text-xl">FlowRate {data.rate}</p>
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 flex items-center justify-center w-6/12"
-              onClick={() => history.push('/tankView')}
+              onClick={() => history.push("/tankView")}
             >
               View Logs
             </button>
