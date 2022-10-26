@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 const SingleTank = ({ info }) => {
   const convertLevel = (level) => {
     if (level === 0) {
-      return 100;
+      return 95;
     }
     let newValue = 100 - level;
 
