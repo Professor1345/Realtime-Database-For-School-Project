@@ -50,7 +50,7 @@ const TanksPage = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       window.location.reload();
-    }, 60000);
+    }, 30000);
     return () => clearInterval(interval);
   }, []);
   return (
