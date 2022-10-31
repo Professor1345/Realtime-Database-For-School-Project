@@ -26,21 +26,19 @@ const MainHeader = () => {
           <Link to="/main" className="text-gray-600 mr-4">
             Home
           </Link>
-          <Link to="/main" className="text-gray-600 mr-4">
+          <Link to="/tanks" className="text-gray-600 mr-4">
             About
           </Link>
-          <Link to="/main" className="text-gray-600 mr-4">
+          <Link to="/tanks" className="text-gray-600 mr-4">
             Contact
           </Link>
         </div>
         <div className="hidden sm:flex items-center justify-center space-x-4 w-3/12">
           <div className="flex items-center">
             <img src={Logo} alt="icon" className="w-12  h-auto " />
-            <p className="text-base md:text-xl ">Ayeni Daniel</p>
+            <p className="text-base md:text-xl ">Unilorin</p>
           </div>
-          <Link to="/main" className="text-gray-600 mr-4">
-            Logout
-          </Link>
+       
         </div>
       </div>
     );

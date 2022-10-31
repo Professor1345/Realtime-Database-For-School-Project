@@ -136,9 +136,9 @@ const Main = () => {
               <ProfileCard
                 img="https://images.unsplash.com/photo-1606122017369-d782bbb78f32?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80"
                 dept="Computer Engineering"
-                mat="16/30GR023"
+                mat="16/30GR026"
                 school="University of Ilorin"
-                name="Buhari Afeez"
+                name="Buhari AbdulHafiz"
               />
             </div>
             <div>
