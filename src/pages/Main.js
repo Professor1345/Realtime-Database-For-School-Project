@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { FiClock, FiEdit } from 'react-icons/fi';
 import { AiTwotoneRocket } from 'react-icons/ai';
 import { FaUserAlt } from 'react-icons/fa';
+import {ImDatabase} from "react-icons/im"
 import ProfileCard from '../components/ProfileCard';
 import Footer from '../components/Footer';
 
@@ -60,7 +61,7 @@ const Main = () => {
           {/* end of features Link */}
           <div className="flex flex-col px-4 md:px-4 align-center w-full md:w-8/12 mx-auto mb-4 sm:mb-10">
             <h1 className="text-gray-800 text-center text-3xl sm:text-4xl font-bold">
-              Our Core Features{' '}
+              Our Core Features{" "}
             </h1>
             <p className="text-center text-lg">
               Special Features created just for you. You can manage and control
@@ -80,9 +81,9 @@ const Main = () => {
               </p>
             </div>
             <div className="flex flex-col justify-center items-center w-full  mx-auto rounded-lg bg-white space-y-2 p-2 shadow-lg">
-              <AiTwotoneRocket className="text-4xl text-blue-500" />
+              <ImDatabase className="text-4xl text-blue-500" />
               <h1 className="text-gray-800 text-center text-xl sm:text-2xl font-bold">
-                High speed connection
+                Real time Database
               </h1>
               <p className="text-center text-lg">
                 Connectivity between the water distribution system and the
@@ -123,7 +124,7 @@ const Main = () => {
           </div>
           <div className="flex flex-col align-center w-full md:w-8/12 mx-auto mb-4 sm:mb-10">
             <h1 className="text-gray-800 text-center text-3xl sm:text-4xl font-bold">
-              Meet Our Team{' '}
+              Meet Our Team{" "}
             </h1>
             <p className="text-center text-lg">
               We are a team of four students from the final year of the B.Engr.
@@ -145,16 +146,16 @@ const Main = () => {
               <ProfileCard
                 img="https://images.unsplash.com/photo-1606122017369-d782bbb78f32?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80"
                 dept="Computer Engineering"
-                mat="16/30GR023"
+                mat="16/30GR013"
                 school="University of Ilorin"
-                name="Ahmed Tunde"
+                name="Ahmmed Babatunde"
               />
             </div>
             <div>
               <ProfileCard
                 img="https://images.unsplash.com/photo-1606122017369-d782bbb78f32?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80"
                 dept="Computer Engineering"
-                mat="16/30GR023"
+                mat="16/30GR047"
                 school="University of Ilorin"
                 name="Raheem Zainab"
               />
