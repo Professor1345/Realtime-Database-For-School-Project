@@ -76,14 +76,14 @@ const SingleTank = ({ info }) => {
   // React.useEffect(() => {
   //   if (data.rate <= 0.5) toast.error(`${data.name} is leaking`);
   // }, [data.rate, data.name]);
-  useEffect(() => {
-    if (data.level >= 80) {
-      offStatus(info.id);
-    }
-    if (data.level <= 20) {
-      OnStatus(info.id);
-    }
-  }, [data.level, info.id]);
+  // useEffect(() => {
+  //   if (data.level >= 80) {
+  //     offStatus(info.id);
+  //   }
+  //   if (data.level <= 20) {
+  //     OnStatus(info.id);
+  //   }
+  // }, [data.level, info.id]);
   return (
     <>
       <div className=" grid grid-cols-2 gap-4 cursor-pointer">
