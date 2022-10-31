@@ -3,23 +3,21 @@ import { useHistory } from "react-router-dom";
 import { updateWater, WaterHooks } from "../config";
 import { TankState } from "../contexts/Context";
 import { toast } from "react-toastify";
-const SingleTank = ({ info }) => {
+const Reservior = ({ info }) => {
   const convertLevel = (level) => {
-    if (level === 0) {
-      return 95;
-    }
-    let newValue = 100 - level;
+     if (level === 0) {
+       return 95;
+     }
+     let newValue = 100 - level;
 
-    if (newValue === 0) {
-      return 10;
-    }
-    if (newValue * 2 > 100) {
-      return 95;
-    }
-    else {
-
-      return Math.floor(newValue * 2);
-    }
+     if (newValue === 0) {
+       return 10;
+     }
+     if (newValue * 2 > 100) {
+       return 95;
+     } else {
+       return Math.floor(newValue * 2);
+     }
   };
   const handleTime = () => {
     let time = new Date();
@@ -82,14 +80,14 @@ const SingleTank = ({ info }) => {
   // React.useEffect(() => {
   //   if (data.rate <= 0.5) toast.error(`${data.name} is leaking`);
   // }, [data.rate, data.name]);
-  useEffect(() => {
-    if (data.level >= 80) {
-      offStatus(info.id);
-    }
-    if (data.level <= 20) {
-      OnStatus(info.id);
-    }
-  }, [data.level, info.id]);
+  // useEffect(() => {
+  //   if (data.level >= 80) {
+  //     offStatus(info.id);
+  //   }
+  //   if (data.level <= 20) {
+  //     OnStatus(info.id);
+  //   }
+  // }, [data.level, info.id]);
   return (
     <>
       <div className=" grid grid-cols-2 gap-4 cursor-pointer">
@@ -109,11 +107,11 @@ const SingleTank = ({ info }) => {
         </div>
         <div className="col-auto md:col-auto ">
           <div className="flex flex-col  w-full space-y-2">
-            <p className="text-gray-600 text-xl">TankName: {data.name}</p>
+            <p className="text-gray-600 text-xl">Name: Main Reserviour</p>
             {/* <p className="text-gray-600 text-xl"> Location:{data.location}</p> */}
             <p className="text-gray-600 text-xl">Date: {data.date}</p>
             <p className="text-gray-600 text-xl">Time {data.time}</p>
-            <p className="text-gray-600 text-xl">FlowRate {data.rate}</p>
+            {/* <p className="text-gray-600 text-xl">FlowRate {data.rate}</p> */}
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 flex items-center justify-center w-6/12"
               onClick={() => history.push("/tankView")}
@@ -121,26 +119,7 @@ const SingleTank = ({ info }) => {
               View Logs
             </button>
 
-            {data?.status ? (
-              <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 flex items-center justify-center w-6/12"
-                onClick={() => switchStatus(info.id)}
-              >
-                Turn Off
-              </button>
-            ) : (
-              <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 flex items-center justify-center w-6/12"
-                onClick={() => switchStatus(info.id)}
-              >
-                Turn On
-              </button>
-            )}
-            {data?.status ? (
-              <p>The Tank is currently ON</p>
-            ) : (
-              <p>The Tank is currently OFF</p>
-            )}
+            
           </div>
         </div>
       </div>
@@ -148,4 +127,4 @@ const SingleTank = ({ info }) => {
   );
 };
 
-export default SingleTank;
+export default Reservior;

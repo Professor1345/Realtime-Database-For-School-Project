@@ -73,11 +73,10 @@ const Main = () => {
             <div className="flex flex-col justify-center items-center w-full  mx-auto rounded-lg bg-white space-y-2 p-2 shadow-lg">
               <FiClock className="text-4xl text-blue-500" />
               <h1 className="text-gray-800 text-center text-xl sm:text-2xl font-bold">
-                Real Time Monitoring
+               Automated Control
               </h1>
               <p className="text-center text-lg">
-                We provide a solution for monitoring and controlling water
-                distribution
+                    The system is designed to  
               </p>
             </div>
             <div className="flex flex-col justify-center items-center w-full  mx-auto rounded-lg bg-white space-y-2 p-2 shadow-lg">
@@ -86,8 +85,7 @@ const Main = () => {
                 Real time Database
               </h1>
               <p className="text-center text-lg">
-                Connectivity between the water distribution system and the
-                Iot(Internet of Things) is of high speed.
+                The system is equipped with a real time database which stores the informations of the tanks in real time.
               </p>
             </div>
             <div className="flex flex-col justify-center items-center w-full  mx-auto rounded-lg bg-white space-y-2 p-2 shadow-lg">
@@ -96,7 +94,7 @@ const Main = () => {
                 User Friendly Interface
               </h1>
               <p className="text-center text-lg">
-                We provide a user friendly interface for the user to manage and
+                The systems provides a user friendly interface for the user to manage and
                 control the water distribution system.
               </p>
             </div>

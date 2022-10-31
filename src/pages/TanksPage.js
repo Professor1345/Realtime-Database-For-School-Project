@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import MainHeader from "../components/MainHeader";
 import SingleTank from "../components/SingleTank";
-
+import Reservior from "../components/Reservour";
 import Footer from "../components/Footer";
 // import { TankState } from '../contexts/Context';
 import { useHistory } from "react-router-dom";
@@ -47,12 +47,12 @@ const TanksPage = () => {
       localStorage.setItem("tanks-data", JSON.stringify(newTanks));
     } else localStorage.setItem("tanks-data", JSON.stringify(tanks));
   }, [fetchRealTimeData]);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      window.location.reload();
-    }, 30000);
-    return () => clearInterval(interval);
-  }, []);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     window.location.reload();
+  //   }, 30000);
+  //   return () => clearInterval(interval);
+  // }, []);
   return (
     <>
       <MainHeader />
@@ -60,13 +60,26 @@ const TanksPage = () => {
         {loading ? (
           <div>Loading...</div>
         ) : (
-          tanks?.map((info, index) => {
+          tanks?.slice(1,4).map((info, index) => {
             return (
               <div className=" p-2 mb-4 " key={index}>
                 <SingleTank info={info} />
               </div>
             );
           })
+            
+        )}
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          tanks?.slice(0,1).map((info, index) => {
+            return (
+              <div className=" p-2 mb-4 " key={index}>
+                <Reservior info={info} />
+              </div>
+            );
+          })
+            
         )}
       </div>
       {/* <AddTank /> */}
