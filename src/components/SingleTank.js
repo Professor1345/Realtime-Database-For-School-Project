@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { updateWater, WaterHooks } from "../config";
+import { updateDoor, WaterHooks } from "../config";
 import { TankState } from "../contexts/Context";
 import { toast } from "react-toastify";
 const SingleTank = ({ info }) => {
@@ -54,7 +54,7 @@ const SingleTank = ({ info }) => {
 
   const switchStatus = async (id) => {
     // Switch the status of the tank !! turn the value to a boolean data type
-    const d = await updateWater(id, {
+    const d = await updateDoor(id, {
       SW: !!data.sw ? 0 : 1,
       Status: !!data.status ? 0 : 1,
     });
@@ -62,7 +62,7 @@ const SingleTank = ({ info }) => {
   };
   const offStatus = async (id) => {
     // Switch the status of the tank !! turn the value to a boolean data type
-    const d = await updateWater(id, {
+    const d = await updateDoor(id, {
       SW: 0,
       Status: 0,
     });
@@ -71,7 +71,7 @@ const SingleTank = ({ info }) => {
   };
   const OnStatus = async (id) => {
     // Switch the status of the tank !! turn the value to a boolean data type
-    const d = await updateWater(id, {
+    const d = await updateDoor(id, {
       SW: 1,
       Status: 1,
     });
@@ -103,7 +103,7 @@ const SingleTank = ({ info }) => {
                 backgroundColor: " rgb(14 165 233)",
               }}
             >
-              <p className="text-gray-900 text-2xl ">{data.level} %</p>
+              <p className="text-gray-900 text-2xl ">{data.temperature} %</p>
             </div>
           </div>
         </div>
@@ -113,13 +113,6 @@ const SingleTank = ({ info }) => {
             {/* <p className="text-gray-600 text-xl"> Location:{data.location}</p> */}
             <p className="text-gray-600 text-xl">Date: {data.date}</p>
             <p className="text-gray-600 text-xl">Time {data.time}</p>
-            <p className="text-gray-600 text-xl">FlowRate {data.rate}</p>
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 flex items-center justify-center w-6/12"
-              onClick={() => history.push("/tankView")}
-            >
-              View Logs
-            </button>
 
             {data?.status ? (
               <button

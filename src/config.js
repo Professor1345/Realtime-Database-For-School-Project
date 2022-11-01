@@ -18,13 +18,13 @@ import { useCallback, useEffect, useState } from 'react';
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: 'AIzaSyCvO65cITxEl14r749FD6A3BrvuGdxFouo',
-  authDomain: 'esp22-4b263.firebaseapp.com',
-  databaseURL: 'https://esp22-4b263.firebaseio.com',
-  projectId: 'esp22-4b263',
-  storageBucket: 'esp22-4b263.appspot.com',
-  messagingSenderId: '907040245981',
-  appId: '1:907040245981:web:561a1d918e23239481b334',
+  apiKey: "AIzaSyD7ZYzZ_PpWgKsw1PGKJe6PkbvwGDXPIXw",
+  authDomain: "door-access-control-b93ab.firebaseapp.com",
+  databaseURL: "https://door-access-control-b93ab-default-rtdb.firebaseio.com",
+  projectId: "door-access-control-b93ab",
+  storageBucket: "door-access-control-b93ab.appspot.com",
+  messagingSenderId: "361100556739",
+  appId: "1:361100556739:web:cfb449e04d245cc6b2a576",
   measurementId: 'G-HZBFV30LYF',
   synchronizeTabs: true,
 };
@@ -54,25 +54,25 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getDatabase(app);
 // let answer = [];
-export const updateWater = async (id, data) => {
-  const baseRef = ref(db, 'Water');
-  const starCountRef = ref(db, 'Water/' + id);
+export const updateDoor = async (id, data) => {
+  const baseRef = ref(db, 'Door');
+  const starCountRef = ref(db, 'Door/' + id);
 
   await update(starCountRef, data);
   let alltanks = await get(baseRef);
   alltanks = alltanks.val();
   return alltanks;
 };
-export const WaterHooks = () => {
-  const getWater = useCallback(() => {
-    const starCountRef = ref(db, 'Water');
+export const DoorHooks = () => {
+  const getDoor = useCallback(() => {
+    const starCountRef = ref(db, 'Door');
 
     return get(starCountRef).then((snap) => {
       return snap.val();
     });
   }, []);
-  const addWater = useCallback((data) => {
-    const starCountRef = ref(db, 'Water');
+  const addDoor = useCallback((data) => {
+    const starCountRef = ref(db, 'Door');
 
     return starCountRef
       .push(data)
@@ -83,8 +83,8 @@ export const WaterHooks = () => {
         console.log(error);
       });
   }, []);
-  // const deleteWater = (id) => {
-  //   const starCountRef = ref(db, 'Water');
+  // const deleteDoor = (id) => {
+  //   const starCountRef = ref(db, 'Door');
 
   //   return starCountRef
   //     .child(id)
@@ -96,8 +96,8 @@ export const WaterHooks = () => {
   //       console.log(error);
   //     });
   // };
-  // const getWaterByStatus = (status) => {
-  //   const starCountRef = ref(db, 'Water');
+  // const getDoorByStatus = (status) => {
+  //   const starCountRef = ref(db, 'Door');
 
   //   return get(starCountRef)
   //     .then((snap) => {
@@ -113,17 +113,17 @@ export const WaterHooks = () => {
   //     });
   // };
   return {
-    getWater,
-    addWater,
-    // deleteWater,
+    getDoor,
+    addDoor,
+    // deleteDoor,
   };
 };
 
 // const db = getDatabase();
 
-// const starCountRef = ref(db, "Water/" + postId + "/starCount");
+// const starCountRef = ref(db, "Door/" + postId + "/starCount");
 // onValue(starCountRef, (snapshot) => {
 //   const data = snapshot.val();
 //   updateStarCount(postElement, data);
 // });
-// write a function getData that will fetch the all the data concerning water from the database
+// write a function getData that will fetch the all the data concerning Door from the database

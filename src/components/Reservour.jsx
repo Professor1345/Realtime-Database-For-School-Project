@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { updateWater, WaterHooks } from "../config";
+import { updateDoor, WaterHooks } from "../config";
 import { TankState } from "../contexts/Context";
 import { toast } from "react-toastify";
 const Reservior = ({ info }) => {
@@ -52,7 +52,7 @@ const Reservior = ({ info }) => {
 
   const switchStatus = async (id) => {
     // Switch the status of the tank !! turn the value to a boolean data type
-    const d = await updateWater(id, {
+    const d = await updateDoor(id, {
       SW: !!data.sw ? 0 : 1,
       Status: !!data.status ? 0 : 1,
     });
@@ -60,7 +60,7 @@ const Reservior = ({ info }) => {
   };
   const offStatus = async (id) => {
     // Switch the status of the tank !! turn the value to a boolean data type
-    const d = await updateWater(id, {
+    const d = await updateDoor(id, {
       SW: 0,
       Status: 0,
     });
@@ -69,7 +69,7 @@ const Reservior = ({ info }) => {
   };
   const OnStatus = async (id) => {
     // Switch the status of the tank !! turn the value to a boolean data type
-    const d = await updateWater(id, {
+    const d = await updateDoor(id, {
       SW: 1,
       Status: 1,
     });
