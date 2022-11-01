@@ -10,16 +10,14 @@ const Header = () => {
   //   use the hook to check the status of the user
   console.log(user);
   return (
-    <div className="w-full h-16 shadow-md  flex justify-between items-center bg-white">
-      <div className="flex items-center">
-        <Link to="/tanks">
-          <img src={Logo} alt="icon" className="w-12  h-auto self-center" />
-        </Link>
-        <Link to="/tanks" className="text-3xl text-gray-600">
-          Uniwaters
+    <div className="w-full h-16 shadow-md  flex justify-center items-center bg-white">
+      <div className="flex items-center justify-center">
+        
+        <Link to="/" className="text-xl text-blue-700 lg:text-3xl">
+          Temperature-Based Door Access Control System
         </Link>
       </div>
-      <div className="block sm:hidden">
+      {/* <div className="block sm:hidden">
         <FaBars className="text-gray-600 text-3xl" />
       </div>
       <div className="hidden sm:flex items-center">
@@ -35,7 +33,7 @@ const Header = () => {
       </div>
       <div className="hidden sm:flex items-center">
         {/* <Link to="/main" className="text-gray-600 mr-4">
-        </Link> */}
+        </Link>
         <div
           className="text-gray-600 mr-4 cursor-pointer"
           onClick={() => signInWithGoogle()}
@@ -45,7 +43,7 @@ const Header = () => {
         <Link to="/main" className="text-gray-600 mr-4">
           Register
         </Link>{' '}
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -14,9 +14,9 @@ function App() {
         <Switch>
           <Route exact path="/" component={Homepage} />
           <Route path="/main" component={Main} />
-          <Route path="/tanks" component={TanksPage} />
-          <Route path="/tankview" component={TankOverview} />
-          <Route path="/addTank" component={AddTank} />
+          {/* <Route path="/tanks" component={TanksPage} /> */}
+          {/* <Route path="/tankview" component={TankOverview} />
+          <Route path="/addTank" component={AddTank} /> */}
           {/* <Route path="/tank/:id" component={TankOverview} /> */}
         </Switch>
       </Router>
