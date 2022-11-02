@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
+import { initializeApp } from "firebase/app";
 import {
   GoogleAuthProvider,
   getAuth,
@@ -9,9 +9,9 @@ import {
   sendPasswordResetEmail,
   signOut,
   onAuthStateChanged,
-} from 'firebase/auth';
-import { getDatabase, ref, get, update } from 'firebase/database';
-import { useCallback, useEffect, useState } from 'react';
+} from "firebase/auth";
+import { getDatabase, ref, get, update } from "firebase/database";
+import { useCallback, useEffect, useState } from "react";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -25,7 +25,7 @@ const firebaseConfig = {
   storageBucket: "door-access-control-b93ab.appspot.com",
   messagingSenderId: "361100556739",
   appId: "1:361100556739:web:cfb449e04d245cc6b2a576",
-  measurementId: 'G-HZBFV30LYF',
+  measurementId: "G-HZBFV30LYF",
   synchronizeTabs: true,
 };
 const googleProvider = new GoogleAuthProvider();
@@ -55,24 +55,26 @@ export const auth = getAuth(app);
 export const db = getDatabase(app);
 // let answer = [];
 export const updateDoor = async (id, data) => {
-  const baseRef = ref(db, 'Door');
-  const starCountRef = ref(db, 'Door/' + id);
+  const baseRef = ref(db, "door");
+  const starCountRef = ref(db, "door/" + id);
 
   await update(starCountRef, data);
   let alltanks = await get(baseRef);
   alltanks = alltanks.val();
   return alltanks;
 };
-export const DoorHooks = () => {
+
+export const useDoorHooks = () => {
   const getDoor = useCallback(() => {
-    const starCountRef = ref(db, 'Door');
+    const starCountRef = ref(db, "door");
 
     return get(starCountRef).then((snap) => {
       return snap.val();
     });
   }, []);
+
   const addDoor = useCallback((data) => {
-    const starCountRef = ref(db, 'Door');
+    const starCountRef = ref(db, "Door");
 
     return starCountRef
       .push(data)
