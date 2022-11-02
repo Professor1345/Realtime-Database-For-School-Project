@@ -111,14 +111,14 @@ const SingleLine = ({ info }) => {
   //   rate: d?.flow_rate || 0,
   //   location: d.location || "",
   //   time: d?.time || handleTime(),
-  //   color: d?.color || "",
+  //   color: d?.color || "",afa
   //   status: statusConverter(d?.status) || "OFF",
   //   sw: d?.SW || 0,
   // });
   // const [data, setData] = useState(handleData(info));
   return (
     <tr className="grid grid-cols-3 w-full space-x-4 md:space-x-10 mb-6  align-center mx-auto py-2">
-      <td className="text-center">{info.Temperature}</td>
+      <td className="text-center">{info.Temperature.toFixed(2)}</td>
       <td className="text-center">{info.Status}</td>
       <td className="text-center">{format(new Date(info.date), "Pp")}</td>
     </tr>
