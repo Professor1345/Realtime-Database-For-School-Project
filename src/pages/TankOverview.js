@@ -6,7 +6,7 @@ import format from "date-fns/format";
 
 const TankOverview = () => {
   let value = JSON.parse(window.localStorage.getItem("tanks-data"));
-  const [tankData, setTankData] = useState([]);
+  const [tankData, setTankData] = useState(value || []);
   // const { getDoor } = useDoorHooks();
   // useEffect(() => {
   //   if (value !== undefined || null) {
@@ -18,9 +18,18 @@ const TankOverview = () => {
       const starCountRef = ref(db, "door");
       onValue(starCountRef, (snapshot) => {
         const data = snapshot.val();
-        data.date = new Date();
+        data.date = new Date().toISOString();
+        console.log(data);
         if (data) {
-          setTankData((prev) => [data]);
+          setTankData((prev) => {
+            const newData = prev;
+            const exists = prev.find(
+              (item) => item.Temperature === data.Temperature
+            );
+            if (!exists) newData.push(data);
+            localStorage.setItem("tanks-data", JSON.stringify(newData));
+            return newData;
+          });
         }
       });
     };
@@ -32,6 +41,7 @@ const TankOverview = () => {
     alert("Tanks Data Cleared Successfully");
     window.location.reload();
   };
+  console.log(tankData);
 
   return (
     <div className="tank-overview mt-16 flex flex-col justify-center align-center w-full max-w-[1320px] my-4">
@@ -110,7 +120,7 @@ const SingleLine = ({ info }) => {
     <tr className="grid grid-cols-3 w-full space-x-4 md:space-x-10 mb-6  align-center mx-auto py-2">
       <td className="text-center">{info.Temperature}</td>
       <td className="text-center">{info.Status}</td>
-      <td className="text-center">{format(info.date, "Pp")}</td>
+      <td className="text-center">{format(new Date(info.date), "Pp")}</td>
     </tr>
   );
 };
