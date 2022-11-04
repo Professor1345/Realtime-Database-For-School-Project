@@ -1,47 +1,60 @@
 import React, { useState, useEffect } from "react";
 // import { useDoorHooks } from "../config";
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, set, push } from "firebase/database";
 import { db } from "../config";
 import format from "date-fns/format";
 
 const TankOverview = () => {
-  let value = JSON.parse(window.localStorage.getItem("tanks-data"));
-  const [tankData, setTankData] = useState(value || []);
+  // let value = JSON.parse(window.localStorage.getItem("tanks-data"));
+  const [tankData, setTankData] = useState([]);
   // const { getDoor } = useDoorHooks();
   // useEffect(() => {
   //   if (value !== undefined || null) {
   //     setTankData(value);
   //   }
   // }, [value]);
-  useEffect(() => {
-    const getData = async () => {
+  const getData = async () => {
+    try {
       const starCountRef = ref(db, "door");
-      onValue(starCountRef, (snapshot) => {
-        const data = snapshot.val();
-        data.date = new Date().toISOString();
-        console.log(data);
-        if (data) {
-          setTankData((prev) => {
-            const newData = prev;
-            const exists = prev.find(
-              (item) => item.Temperature === data.Temperature
-            );
-            if (!exists) newData.push(data);
-            localStorage.setItem("tanks-data", JSON.stringify(newData));
-            return newData;
-          });
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        try {
+          const postListRef = ref(db, 'History');
+          const newPostRef = push(postListRef);
+          set(newPostRef, {...data, date: new Date().toISOString()});
+        } catch (error) {
+          console.log(error.message);
         }
-      });
-    };
+      }
+    });
+    } catch (error) {
+      console.log(error.message, 'first');
+    }
+  };
+
+  const retriveList = async () => {
+    let data = []
+    const dbRef = ref(db, 'History');
+
+onValue(dbRef, (snapshot) => {
+  snapshot.forEach((childSnapshot) => {
+    const childKey = childSnapshot.key;
+    const childData = childSnapshot.val();
+    data.push({...childData, id: childKey})
+    console.log(data);
+  });
+  setTankData(data)
+}, {
+  onlyOnce: true
+});
+
+  }
+  useEffect(() => {
+    retriveList()
     getData();
   }, []);
 
-  const clearData = () => {
-    window.localStorage.removeItem("tanks-data");
-    alert("Tanks Data Cleared Successfully");
-    window.location.reload();
-  };
-  console.log(tankData);
 
   return (
     <div className="tank-overview mt-16 flex flex-col justify-center align-center w-full max-w-[1320px] my-4">
