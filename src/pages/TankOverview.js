@@ -58,6 +58,13 @@ onValue(dbRef, (snapshot) => {
 
   return (
     <div className="tank-overview mt-16 flex flex-col justify-center align-center w-full max-w-[1320px] my-4">
+      <div>Data Max</div>
+      <div className="flex">
+        <div>Day</div>
+        <div>Week</div>
+        <div>Month</div>
+        <div>Year</div>
+      </div>
       <div className="tank-overview-header relative">
         <h2 className="text-center text-3xl font-bold">Data Log</h2>
         {/* <p className="absolute top-2 right-3 cursor-pointer bg-red-500 text-white rounded-sm px-6 py-2" onClick={clearData}>Clear Data</p> */}
