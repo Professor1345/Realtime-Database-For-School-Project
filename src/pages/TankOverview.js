@@ -46,8 +46,41 @@ const TankOverview = () => {
   const first = tankDataSort[0];
   return (
     <div className="tank-overview mt-16 flex flex-col justify-center align-center w-full max-w-[1320px] my-4">
+    <div className="text-center text-3xl font-bold">Data Statistics</div>
+      <div className="flex justify-center items-center flex-col mx-auto w-full md:w-full">
+        <div className="grid grid-cols-4 text-base mx-auto text-center lg:text-lg w-full p-2 lg:py-2 bg-slate-100">
+          <div className="p-2 font-bold">Day</div>
+          <div className="p-2 font-bold">Week</div>
+          <div className="p-2 font-bold">Month</div>
+          <div className="p-2 font-bold">Year</div>
+        </div>
+        
+        {tankData?.length !== 0 ? (
+              // tankData?.map((info, index) =>
+                // return <SingleLine info={tank} key={index} />;
+                <div className="grid grid-cols-4 text-base mx-auto text-center lg:text-lg w-full p-2 lg:py-2">
+                  
+                  {/* USEFUL */}
+                  {/* <div className="p-2">{firstDay?.Temperature.toFixed(2)}</div>
+                  <div className="p-2">{firstWeek?.Temperature.toFixed(2)}</div>
+                  <div className="p-2">{firstMonth?.Temperature.toFixed(2)}</div>
+                  <div className="p-2">{firstYear?.Temperature.toFixed(2)}</div> */}
 
 <div className="p-2">{first?.Temperature.toFixed(2)}</div>
+<div className="p-2">{first?.Temperature.toFixed(2)}</div>
+<div className="p-2">{first?.Temperature.toFixed(2)}</div>
+<div className="p-2">{first?.Temperature.toFixed(2)}</div>
+          </div>
+              // )
+            ) : (
+              <tr>
+                <td className="text-center text-[45px]">No Data Yet </td>
+              </tr>
+            )}
+        
+        
+      </div>
+
 
       <div className="tank-overview-header relative">
         <h2 className="text-center text-3xl font-bold">Data Logs</h2>
