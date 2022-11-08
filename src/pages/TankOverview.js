@@ -42,7 +42,8 @@ const TankOverview = () => {
     window.location.reload();
   };
   console.log(tankData);
-
+  const tankDataSort = [...tankData].sort(function (a,b) {return b - a;});
+  const first = tankDataSort[0];
   return (
     <div className="tank-overview mt-16 flex flex-col justify-center align-center w-full max-w-[1320px] my-4">
 
