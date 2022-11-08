@@ -45,6 +45,9 @@ const TankOverview = () => {
 
   return (
     <div className="tank-overview mt-16 flex flex-col justify-center align-center w-full max-w-[1320px] my-4">
+
+<div className="p-2">{first?.Temperature.toFixed(2)}</div>
+
       <div className="tank-overview-header relative">
         <h2 className="text-center text-3xl font-bold">Data Logs</h2>
         {/* <p className="absolute top-2 right-3 cursor-pointer bg-red-500 text-white rounded-sm px-6 py-2" onClick={clearData}>Clear Data</p> */}
