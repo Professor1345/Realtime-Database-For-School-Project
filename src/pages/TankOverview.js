@@ -82,14 +82,10 @@ const TankOverview = () => {
       </div>
 
 
-      <div className="tank-overview-header relative">
-        <h2 className="text-center text-3xl font-bold">Data Logs</h2>
-        {/* <p className="absolute top-2 right-3 cursor-pointer bg-red-500 text-white rounded-sm px-6 py-2" onClick={clearData}>Clear Data</p> */}
-      </div>
-      <div className="tank-overview-table w-full flex m-5 md:my-5">
+      <div className="tank-overview-table w-full flex my-5 md:my-5">
         <table className=" md:w-full flex justify-center flex-col mx-auto table-auto ">
           <thead className="text-center mx-auto w-full">
-            <tr className="grid grid-cols-3 space-x-4 text-base lg:text-lg w-full p-2 lg:py-2 bg-slate-100">
+            <tr className="grid grid-cols-3 space-x-4 text-base lg:text-lg w-full py-2 lg:py-2 bg-slate-100">
               <th>Temperature</th>
               <th>Status</th>
               <th>Realtime</th>
