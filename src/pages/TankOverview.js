@@ -66,7 +66,7 @@ Number(new Date().getMonth() + 1) == 0)?
 ((data.date).substring(8,10) - 
 new Date().toISOString().substring(8,10) === 0): undefined);
 //SORT
-const tankDataSortDay = [...newDayData].sort(function (a,b) {return new Date(b.date).getTime() - new Date(a.date).getTime();});
+const tankDataSortDay = [...newDayData].sort(function (a,b) {return b.Temperature.toFixed(2) - a.Temperature.toFixed(2);});
 const firstDay = tankDataSortDay[0];
 
 //WEEK
