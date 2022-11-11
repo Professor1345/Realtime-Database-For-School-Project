@@ -1,47 +1,113 @@
 import React, { useState, useEffect } from "react";
 // import { useDoorHooks } from "../config";
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, set, push } from "firebase/database";
 import { db } from "../config";
 import format from "date-fns/format";
 
 const TankOverview = () => {
-  let value = JSON.parse(window.localStorage.getItem("tanks-data"));
-  const [tankData, setTankData] = useState(value || []);
+  // let value = JSON.parse(window.localStorage.getItem("tanks-data"));
+  const [tankData, setTankData] = useState([]);
   // const { getDoor } = useDoorHooks();
   // useEffect(() => {
   //   if (value !== undefined || null) {
   //     setTankData(value);
   //   }
   // }, [value]);
-  useEffect(() => {
-    const getData = async () => {
+  const getData = async () => {
+    try {
       const starCountRef = ref(db, "door");
-      onValue(starCountRef, (snapshot) => {
-        const data = snapshot.val();
-        data.date = new Date().toISOString();
-        console.log(data);
-        if (data) {
-          setTankData((prev) => {
-            const newData = prev;
-            const exists = prev.find(
-              (item) => item.Temperature === data.Temperature
-            );
-            if (!exists) newData.push(data);
-            localStorage.setItem("tanks-data", JSON.stringify(newData));
-            return newData;
-          });
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        try {
+          const postListRef = ref(db, 'History');
+          const newPostRef = push(postListRef);
+          set(newPostRef, {...data, date: new Date().toISOString()});
+        } catch (error) {
+          console.log(error.message);
         }
-      });
-    };
+      }
+    });
+    } catch (error) {
+      console.log(error.message, 'first');
+    }
+  };
+
+  const retriveList = async () => {
+    let data = []
+    const dbRef = ref(db, 'History');
+
+onValue(dbRef, (snapshot) => {
+  snapshot.forEach((childSnapshot) => {
+    const childKey = childSnapshot.key;
+    const childData = childSnapshot.val();
+    data.push({...childData, id: childKey})
+    console.log(data);
+  });
+  setTankData(data)
+}, {
+  onlyOnce: true
+});
+
+  }
+  useEffect(() => {
+    retriveList()
     getData();
   }, []);
 
-  const clearData = () => {
-    window.localStorage.removeItem("tanks-data");
-    alert("Tanks Data Cleared Successfully");
-    window.location.reload();
-  };
-  console.log(tankData);
+  // FILTER FOR STATISTICS
+  // const dataFilter = tankData.filter((data) => data === [0]
+
+//DAY
+// const day = tankData.filter((data) => data.date === new Date().getDay()+1);
+const newDayData = tankData.filter((data) => ((data.date).substring(0,4) - 
+Number(new Date().getFullYear()) == 0) && ((data.date).substring(5,7) - 
+Number(new Date().getMonth() + 1) == 0)? 
+((data.date).substring(8,10) - 
+new Date().toISOString().substring(8,10) === 0): undefined);
+//SORT
+const tankDataSortDay = [...newDayData].sort(function (a,b) {return b - a;});
+const firstDay = tankDataSortDay[0];
+
+//WEEK
+//   const weekData = (date) => {
+//     let days = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
+//     return days[date.getDay()];}
+//   let date = new Date();
+// const week = tankData.filter((data) => data.date === weekData(date));
+Date.prototype.getWeek = function () {
+var dt = new Date(this.getFullYear(),0,1);
+return Math.ceil((((this - dt) / 86400000) + dt.getDay() + 1)/ 7);
+};
+// var myDate = new Date("2022/11/12");
+const newWeekData = tankData.filter((data) => Number(new Date(data.date).getWeek()) - 
+Number(new Date().getWeek()) === 0);
+//SORT
+const tankDataSortWeek = [...newWeekData].sort(function (a,b) {return b - a;});
+const firstWeek = tankDataSortWeek[0];
+
+//MONTH
+// const month = tankData.filter((data) => data.date === new Date().getMonth()+1);
+const newMonthData = tankData.filter((data) => ((data.date).substring(0,4) - 
+Number(new Date().getFullYear()) === 0)? 
+((data.date).substring(5,7) - 
+Number(new Date().getMonth() + 1) === 0) : undefined);
+//SORT
+const tankDataSortMonth = [...newMonthData].sort(function (a,b) {return b - a;});
+const firstMonth = tankDataSortMonth[0];
+
+//YEAR
+// const year = tankData.filter((data) => data.date === new Date().getFullYear()+1);
+const newYearData = tankData.filter((data) => (data.date).substring(0,4) - 
+Number(new Date().getFullYear()) === 0);
+//SORT
+const tankDataSortYear = [...newYearData].sort(function (a,b) {return b - a;});
+const firstYear = tankDataSortYear[0];
+
+//OKAYYY
+// const Number = [35.2093, 32.4352, 35.754, 30.564, 30.43, 29.34, 36.102, 32.22];
+// const tankDataSort = [...Number].sort(function (a,b) {return b - a;});
+// const first = tankDataSort[0];
 
   // const tankDataSort = [...tankData].sort(function (a,b) {return b - a;});
   // const first = tankDataSort[0];
@@ -99,7 +165,11 @@ const firstYear = tankDataSortYear[0];
 
   return (
     <div className="tank-overview mt-16 flex flex-col justify-center align-center w-full max-w-[1320px] my-4">
+<<<<<<< HEAD
     <div className="text-center text-3xl font-bold">Data Statistics</div>
+=======
+      <div className="text-center text-3xl font-bold">Data Statistics</div>
+>>>>>>> temp-msin
       <div className="flex justify-center items-center flex-col mx-auto w-full md:w-full">
         <div className="grid grid-cols-4 text-base mx-auto text-center lg:text-lg w-full p-2 lg:py-2 bg-slate-100">
           <div className="p-2 font-bold">Day</div>
@@ -119,10 +189,17 @@ const firstYear = tankDataSortYear[0];
                   <div className="p-2">{firstMonth?.Temperature.toFixed(2)}</div>
                   <div className="p-2">{firstYear?.Temperature.toFixed(2)}</div>
 
+<<<<<<< HEAD
 {/* <div className="p-2">{first?.Temperature.toFixed(2)}</div>
 <div className="p-2">{first?.Temperature.toFixed(2)}</div>
 <div className="p-2">{first?.Temperature.toFixed(2)}</div>
 <div className="p-2">{first?.Temperature.toFixed(2)}</div> */}
+=======
+{/* <div className="p-2">{firstDay?.toFixed(2)}</div>
+<div className="p-2">{firstWeek?.toFixed(2)}</div>
+<div className="p-2">{firstMonth?.toFixed(2)}</div>
+<div className="p-2">{firstYear?.toFixed(2)}</div> */}
+>>>>>>> temp-msin
           </div>
               // )
             ) : (
@@ -133,7 +210,10 @@ const firstYear = tankDataSortYear[0];
         
         
       </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> temp-msin
       <div className="tank-overview-header relative">
         <h2 className="text-center text-3xl font-bold">Data Logs</h2>
         {/* <p className="absolute top-2 right-3 cursor-pointer bg-red-500 text-white rounded-sm px-6 py-2" onClick={clearData}>Clear Data</p> */}
@@ -205,9 +285,12 @@ const SingleLine = ({ info }) => {
   //   sw: d?.SW || 0,
   // });
   // const [data, setData] = useState(handleData(info));
+  // const Number = [35.2093, 32.4352, 35.754, 30.564, 30.43, 29.34, 36.102, 32.22];
+  
   return (
     <tr className="grid grid-cols-3 w-full space-x-4 md:space-x-10 mb-6  align-center mx-auto py-2">
-      <td className="text-center">{info.Temperature.toFixed(2)}</td>
+      {/* <td className="text-center">{info.Temperature.toFixed(2)}</td> */}
+      <td className="text-center">{info.Temperature}</td>
       <td className="text-center">{info.Status}</td>
       <td className="text-center">{format(new Date(info.date), "Pp")}</td>
     </tr>
