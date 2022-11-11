@@ -126,15 +126,15 @@ const firstYear = tankDataSortYear[0];
                 <div className="grid grid-cols-4 text-base mx-auto text-center lg:text-lg w-full p-2 lg:py-2">
                   
                   {/* USEFUL */}
-                  {/* <div className="p-2">{firstDay?.Temperature.toFixed(2)}</div>
+                  <div className="p-2">{firstDay?.Temperature.toFixed(2)}</div>
                   <div className="p-2">{firstWeek?.Temperature.toFixed(2)}</div>
                   <div className="p-2">{firstMonth?.Temperature.toFixed(2)}</div>
-                  <div className="p-2">{firstYear?.Temperature.toFixed(2)}</div> */}
+                  <div className="p-2">{firstYear?.Temperature.toFixed(2)}</div>
 
-<div className="p-2">{firstDay?.toFixed(2)}</div>
+{/* <div className="p-2">{firstDay?.toFixed(2)}</div>
 <div className="p-2">{firstWeek?.toFixed(2)}</div>
 <div className="p-2">{firstMonth?.toFixed(2)}</div>
-<div className="p-2">{firstYear?.toFixed(2)}</div>
+<div className="p-2">{firstYear?.toFixed(2)}</div> */}
           </div>
               // )
             ) : (
@@ -221,7 +221,7 @@ const SingleLine = ({ info }) => {
   return (
     <tr className="grid grid-cols-3 w-full space-x-4 md:space-x-10 mb-6  align-center mx-auto py-2">
       {/* <td className="text-center">{info.Temperature.toFixed(2)}</td> */}
-      <td className="text-center">36.10</td>
+      <td className="text-center">{info.Temperature}</td>
       <td className="text-center">{info.Status}</td>
       <td className="text-center">{format(new Date(info.date), "Pp")}</td>
     </tr>
