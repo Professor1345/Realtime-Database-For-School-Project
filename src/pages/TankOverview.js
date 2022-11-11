@@ -83,7 +83,7 @@ return Math.ceil((((this - dt) / 86400000) + dt.getDay() + 1)/ 7);
 const newWeekData = tankData.filter((data) => Number(new Date(data.date).getWeek()) - 
 Number(new Date().getWeek()) === 0);
 //SORT
-const tankDataSortWeek = [...newWeekData].sort(function (a,b) {return b - a;});
+const tankDataSortWeek = [...newWeekData].sort(function (a,b) {return b.Temperature.toFixed(2) - a.Temperature.toFixed(2);});
 const firstWeek = tankDataSortWeek[0];
 
 //MONTH
@@ -93,7 +93,7 @@ Number(new Date().getFullYear()) === 0)?
 ((data.date).substring(5,7) - 
 Number(new Date().getMonth() + 1) === 0) : undefined);
 //SORT
-const tankDataSortMonth = [...newMonthData].sort(function (a,b) {return b - a;});
+const tankDataSortMonth = [...newMonthData].sort(function (a,b) {return b.Temperature.toFixed(2) - a.Temperature.toFixed(2);});
 const firstMonth = tankDataSortMonth[0];
 
 //YEAR
@@ -101,7 +101,7 @@ const firstMonth = tankDataSortMonth[0];
 const newYearData = tankData.filter((data) => (data.date).substring(0,4) - 
 Number(new Date().getFullYear()) === 0);
 //SORT
-const tankDataSortYear = [...newYearData].sort(function (a,b) {return b - a;});
+const tankDataSortYear = [...newYearData].sort(function (a,b) {return b.Temperature.toFixed(2) - a.Temperature.toFixed(2);});
 const firstYear = tankDataSortYear[0];
 
 //OKAYYY
