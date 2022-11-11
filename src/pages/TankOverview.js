@@ -59,33 +59,55 @@ onValue(dbRef, (snapshot) => {
   // const dataFilter = tankData.filter((data) => data === [0]
 
 //DAY
-const day = tankData.filter((data) => data.date === new Date().getDay()+1);
-const tankDataSortDay = [...tankData].sort(function (a,b) {return b - a;});
+// const day = tankData.filter((data) => data.date === new Date().getDay()+1);
+const newDayData = tankData.filter((data) => ((data.date).substring(0,4) - 
+Number(new Date().getFullYear()) == 0) && ((data.date).substring(5,7) - 
+Number(new Date().getMonth() + 1) == 0)? 
+((data.date).substring(8,10) - 
+new Date().toISOString().substring(8,10) === 0): undefined);
+//SORT
+const tankDataSortDay = [...newDayData].sort(function (a,b) {return b - a;});
 const firstDay = tankDataSortDay[0];
 
 //WEEK
-  const weekData = (date) => {
-    let days = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
-    return days[date.getDay()];}
-  let date = new Date();
-const week = tankData.filter((data) => data.date === weekData(date));
-const tankDataSortWeek = [...week].sort(function (a,b) {return b - a;});
+//   const weekData = (date) => {
+//     let days = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
+//     return days[date.getDay()];}
+//   let date = new Date();
+// const week = tankData.filter((data) => data.date === weekData(date));
+Date.prototype.getWeek = function () {
+var dt = new Date(this.getFullYear(),0,1);
+return Math.ceil((((this - dt) / 86400000) + dt.getDay() + 1)/ 7);
+};
+// var myDate = new Date("2022/11/12");
+const newWeekData = tankData.filter((data) => Number(new Date(data.date).getWeek()) - 
+Number(new Date().getWeek()) === 0);
+//SORT
+const tankDataSortWeek = [...newWeekData].sort(function (a,b) {return b - a;});
 const firstWeek = tankDataSortWeek[0];
 
 //MONTH
-const month = tankData.filter((data) => data.date === new Date().getMonth()+1);
-const tankDataSortMonth = [...month].sort(function (a,b) {return b - a;});
+// const month = tankData.filter((data) => data.date === new Date().getMonth()+1);
+const newMonthData = tankData.filter((data) => ((data.date).substring(0,4) - 
+Number(new Date().getFullYear()) === 0)? 
+((data.date).substring(5,7) - 
+Number(new Date().getMonth() + 1) === 0) : undefined);
+//SORT
+const tankDataSortMonth = [...newMonthData].sort(function (a,b) {return b - a;});
 const firstMonth = tankDataSortMonth[0];
 
 //YEAR
-const year = tankData.filter((data) => data.date === new Date().getFullYear()+1);
-const tankDataSortYear = [...year].sort(function (a,b) {return b - a;});
+// const year = tankData.filter((data) => data.date === new Date().getFullYear()+1);
+const newYearData = tankData.filter((data) => (data.date).substring(0,4) - 
+Number(new Date().getFullYear()) === 0);
+//SORT
+const tankDataSortYear = [...newYearData].sort(function (a,b) {return b - a;});
 const firstYear = tankDataSortYear[0];
 
 //OKAYYY
-const Number = [35.2093, 32.4352, 35.754, 30.564, 30.43, 29.34, 36.102, 32.22];
-const tankDataSort = [...Number].sort(function (a,b) {return b - a;});
-const first = tankDataSort[0];
+// const Number = [35.2093, 32.4352, 35.754, 30.564, 30.43, 29.34, 36.102, 32.22];
+// const tankDataSort = [...Number].sort(function (a,b) {return b - a;});
+// const first = tankDataSort[0];
 
   return (
     <div className="tank-overview mt-16 flex flex-col justify-center align-center w-full max-w-[1320px] my-4">
@@ -109,10 +131,10 @@ const first = tankDataSort[0];
                   <div className="p-2">{firstMonth?.Temperature.toFixed(2)}</div>
                   <div className="p-2">{firstYear?.Temperature.toFixed(2)}</div> */}
 
-<div className="p-2">{first?.toFixed(2)}</div>
-<div className="p-2">{first?.toFixed(2)}</div>
-<div className="p-2">{first?.toFixed(2)}</div>
-<div className="p-2">{first?.toFixed(2)}</div>
+<div className="p-2">{firstDay?.toFixed(2)}</div>
+<div className="p-2">{firstWeek?.toFixed(2)}</div>
+<div className="p-2">{firstMonth?.toFixed(2)}</div>
+<div className="p-2">{firstYear?.toFixed(2)}</div>
           </div>
               // )
             ) : (
