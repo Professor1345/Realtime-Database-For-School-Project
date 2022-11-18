@@ -6,8 +6,8 @@ import { FiClock, FiEdit } from 'react-icons/fi';
 import { AiTwotoneRocket } from 'react-icons/ai';
 import { FaUserAlt } from 'react-icons/fa';
 import {ImDatabase} from "react-icons/im"
-import ProfileCard from '../components/ProfileCard';
-import TankOverview from './TankOverview';
+// import ProfileCard from '../components/ProfileCard';
+import DataOverview from './DataOverview';
 
 
 const Main = () => {
@@ -18,7 +18,7 @@ const Main = () => {
       {/* Data Base */}
       <div className='mt-5 text-lg lg:text-xl text-center font-bold'>This is the realtime database for Temperature-Based Door Access Control System</div>
       {/* Footer */}
-      <TankOverview/>
+      <DataOverview/>
     </div>
   );
 };
