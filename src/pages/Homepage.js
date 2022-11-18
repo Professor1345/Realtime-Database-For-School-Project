@@ -1,15 +1,16 @@
 import React from 'react';
 import icon from '../assets/icon.png';
 import {useHistory} from 'react-router-dom';
+import Footer from '../components/Footer';
 
 const Homepage = () => {
     const history = useHistory();
 
     setTimeout(() => {
         history.push('/main');
-    }, 4000);
+    }, 5000);
     return (
-        <div className="w-full h-screen bg-fuchsia-700 flex align-center justify-center">
+        <div className="w-full h-screen bg-fuchsia-700 flex align-center justify-center items-center flex-col">
             <div className="bg-white flex flex-col align-center p-4 pb-10 w-96 h-auto self-center shadow-lg rounded-lg">
                 {/* <img src={icon} alt="icon" className="w-3/6 h-auto self-center animate-bounce mt-6" /> */}
                 <h1 className="text-3xl text-center font-bold text-cyan-600">Welcome To</h1>
@@ -18,6 +19,7 @@ const Homepage = () => {
                     Database Of Temperature Based Access Door Control System
                 </p>
             </div>
+            <Footer/>
         </div>
     );
     }
