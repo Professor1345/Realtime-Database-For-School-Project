@@ -110,7 +110,8 @@ const firstYear = doorDataSortYear[0];
 // const first = doorDataSort[0];
 
   return (
-    <div className="tank-overview mt-16 flex flex-col justify-center align-center w-full max-w-[1320px] my-4">
+   <div style={{width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+       <div className="tank-overview mt-16 flex flex-col justify-center align-center w-full max-w-[1320px] my-4 items-center">
       <div className="text-center text-3xl font-bold">Data Statistics</div>
       <div className="flex justify-center items-center flex-col mx-auto w-full md:w-full">
         <div className="grid grid-cols-4 text-base mx-auto text-center lg:text-lg w-full p-2 lg:py-2 bg-slate-100">
@@ -173,6 +174,7 @@ const firstYear = doorDataSortYear[0];
         </table>
       </div>
     </div>
+   </div>
   );
 };
 
